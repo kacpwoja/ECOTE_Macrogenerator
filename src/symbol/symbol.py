@@ -14,3 +14,8 @@ SYMBOL_BODY_END = '}'
 SYMBOL_ARGUMENT = '&'
 SYMBOL_ARG_SEPARATOR = ','
 ESCAPE_CHARACTER = '\\'
+
+def IS_SPECIAL(char: str):
+    return char == SYMBOL_DEFINITION or char == SYMBOL_CALL or char == SYMBOL_BODY_START or char == SYMBOL_BODY_END \
+        or char == SYMBOL_ARGUMENT or char == SYMBOL_ARG_START or char == SYMBOL_ARG_END or char == SYMBOL_ARG_SEPARATOR \
+            or char == ESCAPE_CHARACTER
