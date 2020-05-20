@@ -9,6 +9,7 @@ class Error():
         """
         self.code = code
         self.name = name
+        self.verbose = lambda args: "No verbose version defined."
 
     def what_short(self, line: int) -> str:
         """Function generating a short description of the error/warning.
@@ -16,14 +17,22 @@ class Error():
         Args:
             line (int):     line at which the error/warning was encountered.
         """
-        return self.code + " " + self.name + " at line " + str(line) + "."
+        if line == int():
+            t = ""
+        else:
+            t = " at line " + str(line)
+        return self.code + " " + self.name + t + "."
 
-    """Function (lambda in fact) generating a verbose description of the error/warning.
-    By default it returns the short description with an information that no verbose version was defined.
+    def what_long(self, line: int, args: [str]) -> str:     
+        """Function (lambda in fact) generating a verbose description of the error/warning.
+        By default it returns the short description with an information that no verbose version was defined.
+        Verbose definition can be defined in attirbute self.verbose as lambda args:
 
-    Args:
-        line (int):     line at which the error/warning was encountered.
-        args ([str]):   list of additional arguments used to produce the verbose error description
-                            e.g. macro name
-    """
-    what_long = lambda self, line, args: self.what_short(line) + " No verbose version defined."
+        Can throw IndexError
+
+        Args:
+            line (int):     line at which the error/warning was encountered.
+            args ([str]):   list of additional arguments used to produce the verbose error description
+                                e.g. macro name
+        """
+        return self.what_short(line) + " " + self.verbose(args)

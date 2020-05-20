@@ -7,7 +7,7 @@ from log import Log
 class ErrorLibException(Exception):
     """Exception for internat errors of the library
     """
-    def __init__(self, message):
+    def __init__(self, message: str):
         """
         Args:
             message (str):  the internal error message
@@ -62,6 +62,161 @@ def get_error_lib():
     """
     lib = ErrorLibrary()
 
-    #...
+    # Errors
+
+    # Macro Definition Errors
+    # e10 args: 0 - name of incorrect macro
+    e = Error("e10", "Incorrect Macro Name")
+    e.verbose = lambda args: "Unexpected character encountered in macro \"" + args[0] + "\"."
+    lib.library.append(e)
+    
+    # e11 args: 0 - name of defined macro
+    e = Error("e11", "Macro Already Defined")
+    e.verbose = lambda args: "Macro \"" + args[0] + "\" already defined."
+    lib.library.append(e)
+    
+    # e12 args: 0 - name of incorrect parameter
+    e = Error("e12", "Incorrect Parameter Name")
+    e.verbose = lambda args: "Unexpected character encountered in parameter name \"" + args[0] + "\"."
+    lib.library.append(e)
+    
+    # e13 args: 0 - name of macro missing a body
+    e = Error("e13", "Incorrect Parameter Name")
+    e.verbose = lambda args: "Macro \"" + args[0] + "\" is missing a body."
+    lib.library.append(e)
+    
+    # e14 args: 0 - name of undefined parameter
+    e = Error("e14", "Parameter Undefined")
+    e.verbose = lambda args: "Parameter \"" + args[0] + "\" is not defined."
+    lib.library.append(e)
+    
+    # e15 args: 0 - name of macro with call
+    #           1 - name of macro called inside 0
+    e = Error("e15", "Nested Call")
+    e.verbose = lambda args: "Macro \"" + args[1] + "\" called inside macro definition of \"" + args[0] + "\"."
+    lib.library.append(e)
+    
+    # e16 args: 0 - name of macro with definition
+    #           1 - name of macro defined inside 0
+    e = Error("e16", "Nested Definition")
+    e.verbose = lambda args: "Macro \"" + args[1] + "\" defined inside macro definition of \"" + args[0] + "\"."
+    lib.library.append(e)
+    
+    # Macro Call Errors
+    # e20 args: 0 - name of undefined macro
+    e = Error("e20", "Undefined Macro")
+    e.verbose = lambda args: "Macro \"" + args[0] + "\" was not defined."
+    lib.library.append(e)
+    
+    # e21 args: 0 - name of macro in question
+    #           1 - amount of used parameters
+    #           2 - amount of needed parameters
+    e = Error("e21", "Too Few Arguments")
+    e.verbose = lambda args: "Macro \"" + args[0] + "\" was called with " + args[1] + " parameters, but defined with " + args[2] + "."
+    lib.library.append(e)
+    
+    # e22 args: 0 - name of incorrect macro
+    e = Error("e22", "Incorrect Macro Call")
+    e.verbose = lambda args: "Unexpected character encountered in macro call \"" + args[0] + "\"."
+    lib.library.append(e)
+    
+    # e23 args: 0 - name of macro with call
+    #           1 - name of macro called inside 0
+    e = Error("e23", "Nested Call")
+    e.verbose = lambda args: "Macro \"" + args[1] + "\" called inside macro call of \"" + args[0] + "\"."
+    lib.library.append(e)
+    
+    # e24 args: 0 - name of macro with definition
+    #           1 - name of macro defined inside 0
+    e = Error("e24", "Nested Definition")
+    e.verbose = lambda args: "Macro \"" + args[1] + "\" defined inside macro call of \"" + args[0] + "\"."
+    lib.library.append(e)
+
+    # CLI Errors
+    # e81 args: 0 - first incompatible option
+    #           1 - second incompatible option
+    e = Error("e81", "Incompatible Options")
+    e.verbose = lambda args: "Options \"" + args[0] + "\" and \"" + args[0] + "\" are not compatible. Select one."
+    lib.library.append(e)
+    
+    # e82 args: 0 - unknown option
+    e = Error("e82", "Unknown Option")
+    e.verbose = lambda args: "Unknown option: \"" + args[0] + "\"."
+    lib.library.append(e)
+    
+    # e83
+    e = Error("e83", "No Input File")
+    e.verbose = lambda args: "No input file was specified."
+    lib.library.append(e)
+
+    # Other Errors
+    # e98 args: 0 - message
+    e = Error("e98", "I/O Error")
+    e.verbose = lambda args: "There was an error with file I/O: " + args[0] + "."
+    lib.library.append(e)
+    
+    # e99 args: 0 - message
+    e = Error("e99", "Internal Error")
+    e.verbose = lambda args: "Internal error encountered: " + args[0] + "."
+    lib.library.append(e)
+
+    # Warnings
+
+    # Macro Definition Warnings
+    # w10 args: 0 - name of the macro
+    #           1 - name of the parameter
+    e = Error("w10", "Unused Parameter")
+    e.verbose = lambda args: "Parameter \"" + args[1] + "\" unused in macro \"" + args[0] + "\"."
+    lib.library.append(e)
+    
+    # w11 args: 0 - name of macro with empty body
+    e = Error("w11", "Empty Macro Body")
+    e.verbose = lambda args: "Macro \"" + args[0] + "\" has an empty body."
+    lib.library.append(e)
+    
+    # w12 args: 0 - name of unused macro
+    e = Error("w12", "Unused Macro")
+    e.verbose = lambda args: "Macro \"" + args[0] + "\" was defined, but not called."
+    lib.library.append(e)
+
+    # Macro Call Warnings
+    
+    # w20 args: 0 - name of the macro
+    #           1 - amount of used parameters
+    #           2 - amount of needed parameters
+    e = Error("w20", "Too Many Arguments")
+    e.verbose = lambda args: "Macro \"" + args[0] + "\" was called with " + args[1] + " arguments, but defined with " + args[2] + "."
+    lib.library.append(e)
+    
+    # w21 args: 0 - name of the macro
+    #           1 - name of the argument
+    e = Error("w21", "Empty Argument")
+    e.verbose = lambda args: "Macro \"" + args[0] + "\" was called with an empty argument \"" + args[1] + "\"."
+    lib.library.append(e)
+
+    # w22 args: 0 - name of the macro
+    #           1 - name of the argument
+    e = Error("w22", "Whitespace Argument")
+    e.verbose = lambda args: "Macro \"" + args[0] + "\" was called with an argument \"" + args[1] + "\" starting with whitespace. Possibly unmeant behaviour."
+    lib.library.append(e)
+
+    # CLI Warnings
+    # w80 args: 0 - filename
+    e = Error("w80", "Overwrite Warning")
+    e.verbose = lambda args: "The input file is the same as the output file: \"" + args[0] + "\"."
+    lib.library.append(e)
+
+    # Other Warnings
+    # w90 args 0 - character
+    e = Error("w90", "Escape Character Error")
+    e.verbose = lambda args: "Escape Character was used on a non-special character: \'" + args[0] + "\'."
+    lib.library.append(e)
 
     return lib
+
+if __name__ == "__main__":
+    # Printing macro library for debug purposes
+    for e in get_error_lib().library:
+        print(e.code + " " + e.name)
+        print(e.what_short(10))
+        print(e.what_long(20, ["arg0", "arg1", "arg2"]))
