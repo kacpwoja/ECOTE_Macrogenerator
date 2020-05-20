@@ -1,3 +1,10 @@
+"""Module symbol.symbol
+
+This module stores the special symbols used by the macrogenerator
+
+They should be treated as constants and NOT be changed at runtime
+"""
+
 SYMBOL_DEFINITION = '#'
 SYMBOL_CALL = '$'
 SYMBOL_ARG_START = '('
