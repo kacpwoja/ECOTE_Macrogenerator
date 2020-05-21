@@ -75,31 +75,37 @@ def get_error_lib():
     e.verbose = lambda args: "Macro \"" + args[0] + "\" already defined."
     lib.library.append(e)
     
-    # e12 args: 0 - name of incorrect parameter
+    # e12 args: 0 - name of the macro
+    #           1 - name of incorrect parameter
     e = Error("e12", "Incorrect Parameter Name")
-    e.verbose = lambda args: "Unexpected character encountered in parameter name \"" + args[0] + "\"."
+    e.verbose = lambda args: "Unexpected character encountered in parameter name \"" + args[1] + "\" in macro \"" + args[0] + "\"."
     lib.library.append(e)
     
     # e13 args: 0 - name of macro missing a body
-    e = Error("e13", "Incorrect Parameter Name")
+    e = Error("e13", "Missing Macro Body")
     e.verbose = lambda args: "Macro \"" + args[0] + "\" is missing a body."
     lib.library.append(e)
     
-    # e14 args: 0 - name of undefined parameter
+    # e14 args: 0 - name of the macro
+    #           1 - name of undefined parameter
     e = Error("e14", "Parameter Undefined")
-    e.verbose = lambda args: "Parameter \"" + args[0] + "\" is not defined."
+    e.verbose = lambda args: "Parameter \"" + args[1] + "\" is not defined in macro \"" + args[0] + "\"."
     lib.library.append(e)
     
     # e15 args: 0 - name of macro with call
-    #           1 - name of macro called inside 0
     e = Error("e15", "Nested Call")
-    e.verbose = lambda args: "Macro \"" + args[1] + "\" called inside macro definition of \"" + args[0] + "\"."
+    e.verbose = lambda args: "Another macro called inside macro body of \"" + args[0] + "\"."
     lib.library.append(e)
     
     # e16 args: 0 - name of macro with definition
-    #           1 - name of macro defined inside 0
     e = Error("e16", "Nested Definition")
-    e.verbose = lambda args: "Macro \"" + args[1] + "\" defined inside macro definition of \"" + args[0] + "\"."
+    e.verbose = lambda args: "Another macro defined inside macro body of \"" + args[0] + "\"."
+    lib.library.append(e)
+    
+    # e17 args: 0 - name of the macro
+    #           1 - name of repeated parameter
+    e = Error("e17", "Parameter Repeated")
+    e.verbose = lambda args: "Parameter \"" + args[1] + "\" is defined more than once in macro \"" + args[0] + "\"."
     lib.library.append(e)
     
     # Macro Call Errors

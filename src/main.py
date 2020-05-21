@@ -23,10 +23,10 @@ if __name__ == "__main__":
                             help="redirects the error/warning output to a file")
     (options, args) = opt_parser.parse_args()
         
-    # DEBUG
-    print(sys.argv)
-    print(args)
-    print(options)
+    # # DEBUG
+    # print(sys.argv)
+    # print(args)
+    # print(options)
 
     # CLI Errors/Warnings
     if options.silent and options.verbose:
@@ -46,6 +46,14 @@ if __name__ == "__main__":
         output_file = "mg_out"
     else:
         output_file = args[1]
+    if input_file == output_file:
+        if not options.silent and options.warnings:
+            warn = error_lib.get_error("w80")
+            if options.verbose:
+                warn_str = warn.what_long(None, [input_file])
+            else:
+                warn_str = warn.what_short(None)
+            print(warn_str, file=log_out)
 
     # Get the input
     try:
@@ -76,8 +84,10 @@ if __name__ == "__main__":
             print(er_str, file=log_out)
         exit()
     # Print warnings
-    if len(logs) > 0:
-        print("Execution completed with %d warnings:", len(logs), file=log_out)
+    if len(logs) == 1:
+        print("Execution completed with %d warning:" % len(logs), file=log_out)
+    elif len(logs) > 1:
+        print("Execution completed with %d warnings:" % len(logs), file=log_out)
     else:
         print("Execution completed with no warnings.", file=log_out)
     for log in logs:
