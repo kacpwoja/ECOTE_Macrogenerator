@@ -127,15 +127,13 @@ def get_error_lib():
     lib.library.append(e)
     
     # e23 args: 0 - name of macro with call
-    #           1 - name of macro called inside 0
     e = Error("e23", "Nested Call")
-    e.verbose = lambda args: "Macro \"" + args[1] + "\" called inside macro call of \"" + args[0] + "\"."
+    e.verbose = lambda args: "Another acro called inside macro call of \"" + args[0] + "\"."
     lib.library.append(e)
     
     # e24 args: 0 - name of macro with definition
-    #           1 - name of macro defined inside 0
     e = Error("e24", "Nested Definition")
-    e.verbose = lambda args: "Macro \"" + args[1] + "\" defined inside macro call of \"" + args[0] + "\"."
+    e.verbose = lambda args: "Another macro defined inside macro call of \"" + args[0] + "\"."
     lib.library.append(e)
 
     # CLI Errors
