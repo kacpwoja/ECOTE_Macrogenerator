@@ -1,10 +1,10 @@
 """ Main Macro Generator class
 """
 
-from macro import Macro
-from macrolibrary import MacroLibrary
-from errorlibrary import get_error_lib
-from log import Log
+from macrogenerator.macro import Macro
+from macrogenerator.macrolibrary import MacroLibrary
+from error.errorlibrary import get_error_lib
+from error.log import Log
 
 class MacroGenerator():
     def __init__(self):
@@ -15,7 +15,7 @@ class MacroGenerator():
         """
         output_text = source_text
         logs = []
-
+        
         return output_text, logs
 
     def __macro_definition(self, source_text: str) -> None:

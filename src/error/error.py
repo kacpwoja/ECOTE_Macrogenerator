@@ -17,7 +17,7 @@ class Error():
         Args:
             line (int):     line at which the error/warning was encountered.
         """
-        if line == int():
+        if line == None:
             t = ""
         else:
             t = " at line " + str(line)
