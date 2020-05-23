@@ -1,8 +1,8 @@
 """ Main Macro Generator class
 """
 
-from macrogenerator.macro import Macro
-from macrogenerator.macrolibrary import MacroLibrary, MacroLibException
+from .macro import Macro
+from .macrolibrary import MacroLibrary, MacroLibException
 from error.errorlibrary import get_error_lib
 from error.log import Log
 from symbol.symbol import *
@@ -127,6 +127,7 @@ class MacroGenerator():
             char = source_text[0]
             source_text = source_text[1:]
             if char == ESCAPE_CHARACTER:
+                body = body + char
                 char = source_text[0]
                 source_text = source_text[1:]
                 body = body + char
@@ -234,19 +235,25 @@ class MacroGenerator():
         args_def = len(macro.arguments)
         if args_used < args_def:
             raise Log("e21", self.line, [name, str(args_used), str(args_def)])
-        if args_used > args_def:
-            logs.append(Log("w20", self.line, [name, str(args_used), str(args_def)]))
-        for a in args:
-            if a == "":
-                logs.append(Log("w21", self.line, [name, a]))
-            elif a[0].isspace():
-                logs.append(Log("w22", self.line, [name, a]))
+        if not (args_def == 0 and args_used == 1 and args[0] == ""):
+            if args_used > args_def:
+                logs.append(Log("w20", self.line, [name, str(args_used), str(args_def)]))
+            for a in args:
+                if a == "":
+                    logs.append(Log("w21", self.line, [name, a]))
+                elif a[0].isspace():
+                    logs.append(Log("w22", self.line, [name, a]))
 
         # Substitute
         body = macro.body
         while len(body) != 0:
             char = body[0]
             body = body[1:]
+            if char == ESCAPE_CHARACTER:
+                char = body[0]
+                body = body[1:]
+                out = out + char
+                continue
             if char == SYMBOL_ARGUMENT:
                 arg = ""
                 while len(body) != 0:

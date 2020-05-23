@@ -22,11 +22,6 @@ if __name__ == "__main__":
     opt_parser.add_option("-o", "--output", action="store", type="string", dest="filename",
                             help="redirects the error/warning output to a file")
     (options, args) = opt_parser.parse_args()
-        
-    # # DEBUG
-    # print(sys.argv)
-    # print(args)
-    # print(options)
 
     # CLI Errors/Warnings
     if options.silent and options.verbose:

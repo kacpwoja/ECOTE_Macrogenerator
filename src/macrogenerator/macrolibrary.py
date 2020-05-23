@@ -1,4 +1,4 @@
-from macrogenerator.macro import Macro
+from .macro import Macro
 
 class MacroLibException(Exception):
     """Exception for internat errors of the library

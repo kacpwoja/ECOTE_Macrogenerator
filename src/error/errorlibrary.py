@@ -1,8 +1,8 @@
 """Module handling the library of all existing errors
 """
 
-from error.error import Error
-from error.log import Log
+from .error import Error
+from .log import Log
 
 class ErrorLibException(Exception):
     """Exception for internat errors of the library
