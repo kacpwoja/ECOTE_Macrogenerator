@@ -146,32 +146,10 @@ def get_error_lib():
     e.verbose = lambda args: "The input ended inside the call of macro \"" + args[0] + "\"."
     lib.library.append(e)
 
-    # CLI Errors
-    # e81 args: 0 - first incompatible option
-    #           1 - second incompatible option
-    e = Error("e81", "Incompatible Options")
-    e.verbose = lambda args: "Options \"" + args[0] + "\" and \"" + args[0] + "\" are not compatible. Select one."
-    lib.library.append(e)
-    
-    # e82 args: 0 - unknown option
-    e = Error("e82", "Unknown Option")
-    e.verbose = lambda args: "Unknown option: \"" + args[0] + "\"."
-    lib.library.append(e)
-    
-    # e83
-    e = Error("e83", "No Input File")
-    e.verbose = lambda args: "No input file was specified."
-    lib.library.append(e)
-
     # Other Errors
     # e98 args: 0 - message
     e = Error("e98", "I/O Error")
     e.verbose = lambda args: "There was an error with file I/O: " + args[0] + "."
-    lib.library.append(e)
-    
-    # e99 args: 0 - message
-    e = Error("e99", "Internal Error")
-    e.verbose = lambda args: "Internal error encountered: " + args[0] + "."
     lib.library.append(e)
 
     # Warnings
