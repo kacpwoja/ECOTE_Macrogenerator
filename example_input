@@ -1,0 +1,6 @@
+#COURSE(NAME,SHORT,ECTS)
+{Course &NAME& (&SHORT&) is worth &ECTS&ECTS.}
+$COURSE(Compiling Techniques,ECOTE,6)
+$COURSE(Orientation, EORI,3)
+#SIGNATURE(ID){Kacper Wojakowski}
+$SIGNATURE(293064,2020)
