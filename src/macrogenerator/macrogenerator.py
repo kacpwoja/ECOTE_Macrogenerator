@@ -140,6 +140,7 @@ class MacroGenerator():
             raise Log("e13", self.line, [name])
             
         # Extract body
+        macro_full = False
         args_used = []
         while len(source_text) != 0:
             char = source_text[0]
@@ -151,6 +152,7 @@ class MacroGenerator():
                 body = body + char
                 continue
             if char == SYMBOL_BODY_END:
+                macro_full = True
                 while len(source_text) != 0:
                     char = source_text[0]
                     if not char.isspace():
@@ -179,6 +181,9 @@ class MacroGenerator():
                 args_used.append(arg)
                 if args.count(arg) == 0:
                     raise Log("e14", self.line, [name, arg])
+
+        if len(source_text) == 0 and not macro_full:
+            raise Log("e18", self.line, [name])
 
         if body == "":
             logs.append(Log("w11", self.line, [name]))
@@ -236,6 +241,7 @@ class MacroGenerator():
         self.used_macros.append(name)
 
         # Extract arguments
+        macro_full = False
         while len(source_text) != 0:
             char = source_text[0]
             source_text = source_text[1:]
@@ -245,6 +251,7 @@ class MacroGenerator():
                 arg = arg + char
                 continue
             if char == SYMBOL_ARG_END:
+                macro_full = True
                 args.append(arg)
                 break
             if char == SYMBOL_ARG_SEPARATOR:
@@ -259,6 +266,9 @@ class MacroGenerator():
                 self.line = self.line + 1
             arg = arg + char
         
+        if len(source_text) == 0 and not macro_full:
+            raise Log("e25", self.line, [name])
+
         args_used = len(args)
         args_def = len(macro.arguments)
         if args_used < args_def:

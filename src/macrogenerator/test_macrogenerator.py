@@ -139,6 +139,22 @@ class TestMacroGenerator(unittest.TestCase):
         with self.assertRaises(Log) as cm:
             self.generator.transform(text_in)
         self.assertEqual(cm.exception.err_code, err)
+        
+    def test_e17(self):
+        text_in = \
+            """#MACRO(A,A){}"""
+        err = "e17"
+        with self.assertRaises(Log) as cm:
+            self.generator.transform(text_in)
+        self.assertEqual(cm.exception.err_code, err)
+        
+    def test_e18(self):
+        text_in = \
+            """#MACRO("""
+        err = "e18"
+        with self.assertRaises(Log) as cm:
+            self.generator.transform(text_in)
+        self.assertEqual(cm.exception.err_code, err)
 
     # Macro Call Errors
     def test_e20(self):
@@ -182,6 +198,15 @@ class TestMacroGenerator(unittest.TestCase):
             """#A(P){hello &P&}
             $A(#B(){John})"""
         err = "e24"
+        with self.assertRaises(Log) as cm:
+            self.generator.transform(text_in)
+        self.assertEqual(cm.exception.err_code, err)
+        
+    def test_e25(self):
+        text_in = \
+            """#A(P){hello &P&}
+            $A("""
+        err = "e25"
         with self.assertRaises(Log) as cm:
             self.generator.transform(text_in)
         self.assertEqual(cm.exception.err_code, err)

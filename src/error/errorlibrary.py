@@ -108,6 +108,11 @@ def get_error_lib():
     e.verbose = lambda args: "Parameter \"" + args[1] + "\" is defined more than once in macro \"" + args[0] + "\"."
     lib.library.append(e)
     
+    # e18 args: 0 - name of macro with definition
+    e = Error("e18", "Unfinished Definition")
+    e.verbose = lambda args: "The input ended inside the definition of macro \"" + args[0] + "\"."
+    lib.library.append(e)
+    
     # Macro Call Errors
     # e20 args: 0 - name of undefined macro
     e = Error("e20", "Undefined Macro")
@@ -134,6 +139,11 @@ def get_error_lib():
     # e24 args: 0 - name of macro with definition
     e = Error("e24", "Nested Definition")
     e.verbose = lambda args: "Another macro defined inside macro call of \"" + args[0] + "\"."
+    lib.library.append(e)
+
+    # e25 args: 0 - name of macro with definition
+    e = Error("e25", "Unfinished Call")
+    e.verbose = lambda args: "The input ended inside the call of macro \"" + args[0] + "\"."
     lib.library.append(e)
 
     # CLI Errors
