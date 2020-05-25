@@ -14,7 +14,16 @@ class MacroGenerator():
         self.line = 1
 
     def transform(self, source_text: str) -> (str, [Log]):
-        """ TODO
+        """ Main Function for transforming text
+
+        Can throw a Log object when an error occurs.
+
+        Args:
+            source_text (str): the text to be transformed
+
+        Returns:
+            a pair (str, [Log]), where the string is the resulting transforming text,
+            and the list of Logs are warnings encountered during execution.
         """
         output_text = ""
         logs = []
@@ -55,7 +64,16 @@ class MacroGenerator():
         return output_text, logs
 
     def __macro_definition(self, source_text: str, logs: [Log]) -> str:
-        """ TODO
+        """ Function handling Macro Definitions
+
+        Can throw a Log object when an error occurs.
+
+        Args:
+            source_text (str):  the text to be transformed
+            logs ([Log]):       list of logs of warnings, to which additional are appended if encountered
+
+        Returns:
+            str:    source text with the substring representing a whole macro definition removed.
         """
         name = ""
         args = []
@@ -177,7 +195,17 @@ class MacroGenerator():
         return source_text
 
     def __macro_call(self, source_text: str, logs: [Log]) -> (str, str):
-        """ TODO
+        """ Function handling Macro Calls
+
+        Can throw a Log object when an error occurs.
+
+        Args:
+            source_text (str):  the text to be transformed
+            logs ([Log]):       list of logs of warnings, to which additional are appended if encountered
+
+        Returns:
+            (str, str):         first str is the source text with the macrocall substring removed
+                                the second one returns the string resulting from the macro call
         """
         name = ""
         arg = ""

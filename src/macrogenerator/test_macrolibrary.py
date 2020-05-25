@@ -3,7 +3,7 @@ from .macrolibrary import MacroLibrary, MacroLibException
 from .macro import Macro
 
 class TestMacroLibrary(unittest.TestCase):
-    """
+    """ Tests for the MacroLibrary class
     """
     def __init__(self, *args, **kwargs):
         super(TestMacroLibrary, self).__init__(*args, **kwargs)

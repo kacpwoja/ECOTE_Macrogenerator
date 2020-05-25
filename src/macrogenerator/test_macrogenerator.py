@@ -4,7 +4,7 @@ from .macrogenerator import MacroGenerator
 from error.log import Log
 
 class TestMacroGenerator(unittest.TestCase):
-    """
+    """ Tests for the MacroGenerator class
     """
     def __init__(self, *args, **kwargs):
         super(TestMacroGenerator, self).__init__(*args, **kwargs)
